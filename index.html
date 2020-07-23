@@ -1,0 +1,198 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css"> 
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+          <div class="header">
+               <h2>Create Account</h2>
+          </div>
+          <form class="form" id="form" onsubmit="validation()" >
+              <div class="form-control">
+                 <label>UserName</label>
+                 <input type="text" id="username" >
+                 <small id="NameMessage">b</small>
+              </div>
+              <div class="form-control">
+                <label>Email</label>
+                <input type="text" id="email" >
+                <small id="EmailMessage">b</small>
+             </div>             
+             <div class="form-control">
+                <label>Password</label>
+                <input type="password" id="password" >
+                <small id="PasswordMessage">b</small>
+             </div>             
+             <div class="form-control">
+                <label>Confirm Password</label>
+                <input type="password" id="confirmPassword" >
+                <small id="ConfirmPasswordMessage">b</small>
+             </div>              
+             <div class="form-control">
+                <label>Website</label>
+                <input type="text" id="Website" >
+                <small id="WebsiteMessage">b</small>
+             </div>              
+             <div class="form-control">
+                <label>Birthday Date</label>
+                <input type="date" id="BirthdayDate" >
+                <small id="BirthdayDateMessage">b</small>
+             </div>
+             <input type="submit" class="submit" >
+          </form>
+    </div>
+<script>
+       form.addEventListener('submit',function(e)
+        {
+            e.preventDefault();
+            validation();
+        });//end addEventListener
+       function validation()
+       {
+        var form= document.getElementById("form");
+        var username= document.getElementById("username").value;
+        var email= document.getElementById("email").value;
+        var password= document.getElementById("password").value;
+        var confirmPassword= document.getElementById("confirmPassword").value;
+        var Website= document.getElementById("Website").value;
+        var BirthdayDate= document.getElementById("BirthdayDate").value;
+        var NameMessage= document.getElementById("NameMessage");
+        var EmailMessage= document.getElementById("EmailMessage");
+        var PasswordMessage= document.getElementById("PasswordMessage");
+        var ConfirmPasswordMessage= document.getElementById("ConfirmPasswordMessage");
+        var WebsiteMessage= document.getElementById("WebsiteMessage");
+        var BirthdayDateMessage= document.getElementById("BirthdayDateMessage");
+        //validatename      
+        var NameLetters =/^[a-zA-Z]+$/;
+        if(username==="")
+        {
+             NameMessage.style.visibility="visible";
+             NameMessage.innerHTML="The Name field is requird";
+        }//end if
+        else if(username.match(NameLetters))
+        {
+             NameMessage.style.visibility="visible";
+             NameMessage.innerHTML="true";            
+        }//end if
+        else
+        {
+            NameMessage.style.visibility="visible";
+             NameMessage.innerHTML="Please enter a valid Name";
+        }//end else
+
+       // validateemail  
+        var atposition=email.indexOf("@");  
+        var dotposition=email.lastIndexOf(".");  
+        if(email==="")
+        {
+             EmailMessage.style.visibility="visible";
+             EmailMessage.innerHTML="The Email field is requird";  
+        }//end if
+        else if (atposition<1 || dotposition<atposition+2 || dotposition+2>=email.length)
+        { 
+             EmailMessage.style.visibility="visible"; 
+             EmailMessage.innerHTML="Please enter a valid e-mail address";   
+        }//end elseif  
+        else 
+        {
+             EmailMessage.style.visibility="visible";
+             EmailMessage.innerHTML="true";   
+        }//end else
+
+          //validatePassword
+          var LowerCaseLetters= /[a-z]/g;
+          var UpperCaseLetters=/[A-Z]/g;
+          var Number= /[0-9]/g;
+          var Symbol= /[!@#$%^&*]/g;
+          if (password==="")
+          {
+            PasswordMessage.style.visibility="visible";
+            PasswordMessage.innerHTML="The Password field is requird";               
+          }//end if
+          else if (password.match(UpperCaseLetters) && password.match(LowerCaseLetters) && password.match(Number) && password.length>=8 && password.match(Symbol))
+          {
+             PasswordMessage.style.visibility="visible"; 
+             PasswordMessage.innerHTML="true";
+          }//end else if
+          else
+          {
+             PasswordMessage.style.visibility="visible"; 
+             PasswordMessage.innerHTML="The Password Must contain at least one Number and one Symbol and one Uppercase and Lowercase letter,and at least 8 or more characters ";              
+          }//end else 
+
+          //validateConfirmPassword
+          if(confirmPassword==="")
+          {
+             ConfirmPasswordMessage.style.visibility="visible";
+             ConfirmPasswordMessage.innerHTML="The Confirm Password field is requird";              
+          }//end if
+          else if(confirmPassword===password)
+          {
+             ConfirmPasswordMessage.style.visibility="visible"; 
+             ConfirmPasswordMessage.innerHTML="true";              
+          }//end else if
+          else
+          {
+             ConfirmPasswordMessage.style.visibility="visible"; 
+             ConfirmPasswordMessage.innerHTML="The Confirm Passwor and Passwor Must Be Same ";           
+          }//end else 
+           
+           //WebSiteDate
+          var pattern=/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+          if(Website==="")
+          {
+             WebsiteMessage.style.visibility="visible";
+             WebsiteMessage.innerHTML="The Website field is requird";                 
+          }//end if
+          else if(pattern.test(Website))
+          {
+             WebsiteMessage.style.visibility="visible";
+             WebsiteMessage.innerHTML="true";              
+          }
+          else
+          {
+             WebsiteMessage.style.visibility="visible";
+             WebsiteMessage.innerHTML="false"; 
+          }
+           //validateBirthdayDate
+          var TodayDate= new Date();
+          var BirthDate= new Date(BirthdayDate);
+          var age= TodayDate.getFullYear() - BirthDate.getFullYear();
+          var Month= TodayDate.getMonth() - BirthDate.getMonth();
+          var Day= TodayDate.getDay() - BirthDate.getDay();
+
+          if(BirthdayDate==="")
+          {
+            BirthdayDateMessage.style.visibility="visible";
+            BirthdayDateMessage.innerHTML="The Birthday Date field is requird";              
+          }
+          else if(age>=18)
+          {
+            BirthdayDateMessage.style.visibility="visible";
+            BirthdayDateMessage.innerHTML="true";              
+          }
+          else
+          {
+            BirthdayDateMessage.style.visibility="visible";
+            BirthdayDateMessage.innerHTML="Sorry your age should be 18 or more";               
+          }
+
+
+
+
+
+
+
+
+
+       }//end function validation
+
+     
+
+</script>
+
+</body>
+</html>
